@@ -19,7 +19,7 @@ services:
       - "443:443"
     volumes:
       - www-html:/var/www/html
-      - ./nginx-conf.d:/etc/nginx/nginx-conf.d
+      - ./nginx-conf.d:/etc/nginx/conf.d
       - etc-letsencrypt:/etc/letsencrypt
     networks:
       - app
