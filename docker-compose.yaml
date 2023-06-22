@@ -16,7 +16,7 @@ services:
 
   certbot:
     image: certbot/certbot
-    command: certonly --webroot --webroot-path=/usr/share/nginx/html --email --agree-tos --no-eff-email --force-renewal -d gptutor.space
+    command: certonly --webroot --webroot-path=/usr/share/nginx/html --agree-tos --no-eff-email --force-renewal -d gptutor.space
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/usr/share/nginx/html
