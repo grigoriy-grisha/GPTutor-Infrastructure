@@ -32,7 +32,7 @@ services:
     volumes:
       - etc-letsencrypt:/etc/letsencrypt
       - www-html:/var/www/html
-    command: certonly --webroot --webroot-path=/var/www/html --email lowww1337gmail.com --register-unsafely-without-email --agree-tos --no-eff-email -d gptutor.space
+    command: certonly --webroot --webroot-path=/var/www/html --register-unsafely-without-email --agree-tos --no-eff-email -d gptutor.space
 
   backend:
     build: ./GPTutor-Backend
