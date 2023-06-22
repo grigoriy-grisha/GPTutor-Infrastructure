@@ -1,23 +1,29 @@
 version: "3.8"
 services:
   nginx:
-    build: ./GPTutor-Frontend
+    image: nginx:latest
+    restart: always
     ports:
       - "80:80"
-    depends_on:
-      - backend
+      - "443:443"
     volumes:
-      - ./frontend/build:/usr/share/nginx/html
-      - ./conf.d:/etc/nginx/conf.d
-      - ./certbot:/etc/letsencrypt/live/gptutor.space
-      - ./certbot:/etc/nginx/certs
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./certbot/conf:/etc/nginx/conf
+      - ./certbot/www:/usr/share/nginx/html
+    networks:
+      - frontend-network
+      - backend-network
 
   certbot:
     image: certbot/certbot
+    command: certonly --webroot --webroot-path=/usr/share/nginx/html --email --agree-tos --no-eff-email --force-renewal -d gptutor.space
     volumes:
-      - ./conf.d:/etc/nginx/conf.d
-      - ./certbot:/etc/letsencrypt
-    command: certonly --webroot --webroot-path=/etc/nginx/conf.d -d gptutor.space -d www.gptutor.space
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/usr/share/nginx/html
+    depends_on:
+      - nginx
+    networks:
+      - frontend-network
 
   backend:
     build: ./GPTutor-Backend
@@ -26,6 +32,12 @@ services:
       - "8080:8080"
     depends_on:
       - postgresql
+
+  frontend:
+    build: ./GPTutor-Frontend
+    restart: always
+    networks:
+      - frontend-network
 
   postgresql:
     image: 'postgres:13.1-alpine'
