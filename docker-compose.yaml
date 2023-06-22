@@ -4,7 +4,7 @@ services:
     build: ./GPTutor-Frontend
     container_name: frontend
     volumes:
-      - www-html:/build/
+      - www-html:/app/build/
     networks:
       - app
 
