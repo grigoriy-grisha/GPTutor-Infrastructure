@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   nginx:
-    build: ./GPTutor-Frontend/Dockerfile
+    build: ./GPTutor-Frontend
     ports:
       - "80:80"
     depends_on:
