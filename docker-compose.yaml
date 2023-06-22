@@ -45,3 +45,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123
+
+networks:
+  frontend-network:
+  backend-network:
