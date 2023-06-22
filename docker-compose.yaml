@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  nginx:
+    build: ./GPTutor-Frontend/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend/build:/usr/share/nginx/html
+      - ./conf.d:/etc/nginx/conf.d
+      - ./certbot:/etc/letsencrypt/live/gptutor.space
+      - ./certbot:/etc/nginx/certs
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./certbot:/etc/letsencrypt
+    command: certonly --webroot --webroot-path=/etc/nginx/conf.d -d gptutor.space -d www.gptutor.space
+
+  backend:
+    build: ./GPTutor-Backend
+    container_name: backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresql
+
+  postgresql:
+    image: 'postgres:13.1-alpine'
+    container_name: postgresql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123

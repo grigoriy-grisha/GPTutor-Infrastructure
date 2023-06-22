@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  frontend:
+    build: GPTutor-Frontend/Dockerfile.dev
+    container_name: frontend
+    ports:
+      - '10888:10888'
+    volumes:
+      - ./GPTutor-Frontend:/app
