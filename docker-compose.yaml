@@ -35,7 +35,6 @@ services:
 
   frontend:
     build: ./GPTutor-Frontend
-    restart: always
     networks:
       - frontend-network
 
