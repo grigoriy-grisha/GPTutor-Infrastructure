@@ -20,38 +20,38 @@ services:
     volumes:
       - www-html:/var/www/html
       - ./nginx-conf.d:/etc/nginx/conf.d
-#      - etc-letsencrypt:/etc/letsencrypt
+      - etc-letsencrypt:/etc/letsencrypt
     networks:
       - app
 
-#  certbot:
-#    container_name: certbot
-#    image: certbot/certbot
-#    depends_on:
-#      - nginx
-#    volumes:
-#      - etc-letsencrypt:/etc/letsencrypt
-#      - www-html:/var/www/html
-#    command: certonly --webroot --webroot-path=/var/www/html --register-unsafely-without-email --agree-tos --no-eff-email -d gptutor.site
+  certbot:
+    container_name: certbot
+    image: certbot/certbot
+    depends_on:
+      - nginx
+    volumes:
+      - etc-letsencrypt:/etc/letsencrypt
+      - www-html:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html --email lowww1337@mail.ru --agree-tos --no-eff-email -d gptutor.site
 
-#  backend:
-#    build: ./GPTutor-Backend
-#    container_name: backend
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      - postgresql
-#    networks:
-#      - app
-#
-#  postgresql:
-#    image: 'postgres:13.1-alpine'
-#    container_name: postgresql
-#    environment:
-#      - POSTGRES_USER=postgres
-#      - POSTGRES_PASSWORD=123
-#    networks:
-#      - app
+  backend:
+    build: ./GPTutor-Backend
+    container_name: backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresql
+    networks:
+      - app
+
+  postgresql:
+    image: 'postgres:13.1-alpine'
+    container_name: postgresql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+    networks:
+      - app
 
 volumes:
   www-html:
