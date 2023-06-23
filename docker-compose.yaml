@@ -1,18 +1,20 @@
-version: "3.8"
+version: '3.9'
+
 services:
   frontend:
     build: ./GPTutor-Frontend
     container_name: frontend
+    restart: unless-stopped
     volumes:
       - www-html:/app/build/
     networks:
       - app
 
   nginx:
-    image: nginx:latest
-    container_name: nginx
+    image: nginx:1.19.8-alpine
     depends_on:
-      - frontend
+      - wp
+    container_name: nginx
     restart: unless-stopped
     ports:
       - "80:80"
@@ -25,14 +27,14 @@ services:
       - app
 
   certbot:
-    container_name: certbot
-    image: certbot/certbot
-    depends_on:
-      - nginx
-    volumes:
-      - etc-letsencrypt:/etc/letsencrypt
-      - www-html:/var/www/html
-    command: certonly --webroot --webroot-path=/var/www/html --email lowww1337@mail.ru --agree-tos --no-eff-email -d gptutor.site
+      image: certbot/certbot
+      depends_on:
+        - nginx
+      container_name: certbot
+      volumes:
+        - etc-letsencrypt:/etc/letsencrypt
+        - www-html:/var/www/html
+      command: certonly --webroot --webroot-path=/var/www/html --email lowww1337@gmail.com --agree-tos --no-eff-email -d gptutor.site
 
   backend:
     build: ./GPTutor-Backend
