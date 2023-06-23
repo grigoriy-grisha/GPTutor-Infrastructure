@@ -48,9 +48,7 @@ services:
   postgresql:
     image: 'postgres:13.1-alpine'
     container_name: postgresql
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=123
+    env_file: .env
     networks:
       - app
 
