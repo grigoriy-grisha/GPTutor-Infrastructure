@@ -13,6 +13,7 @@ services:
     container_name: nginx
     depends_on:
       - frontend
+      - certbot
     restart: unless-stopped
     ports:
       - "80:80"
@@ -27,8 +28,6 @@ services:
   certbot:
     container_name: certbot
     image: certbot/certbot
-    depends_on:
-      - nginx
     volumes:
       - etc-letsencrypt:/etc/letsencrypt
       - www-html:/var/www/html
