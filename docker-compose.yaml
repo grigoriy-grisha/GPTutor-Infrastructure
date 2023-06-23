@@ -4,7 +4,6 @@ services:
   frontend:
     build: ./GPTutor-Frontend
     container_name: frontend
-    restart: unless-stopped
     volumes:
       - www-html:/app/build/
     networks:
