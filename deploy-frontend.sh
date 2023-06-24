@@ -17,3 +17,10 @@ docker-compose rm --force frontend
 
 docker-compose build frontend
 docker-compose up -d frontend
+
+docker-compose stop nginx
+docker-compose rm --force nginx
+
+docker-compose build nginx
+docker-compose up -d nginx
+
