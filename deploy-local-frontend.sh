@@ -1,5 +1,7 @@
 #!/bin/sh
 
+sh .env.sh
+
 cp ./.env-frontend ./GPTutor-Frontend/.env
 
 docker-compose -f docker-compose-dev.yaml stop frontend

@@ -2,7 +2,7 @@
 
 git pull
 
-cp ./.env-frontend ./GPTutor-Frontend/.env
+sh .env.sh
 
 # shellcheck disable=SC2164
 cd ./GPTutor-Frontend
@@ -11,6 +11,8 @@ git pull
 
 # shellcheck disable=SC2164
 cd ../
+
+sh .env.sh
 
 docker-compose stop  frontend
 docker-compose rm --force frontend
