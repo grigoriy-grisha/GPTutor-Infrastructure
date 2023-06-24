@@ -2,7 +2,9 @@ version: '3.9'
 
 services:
   frontend:
-    build: ./GPTutor-Frontend
+    build:
+      context: GPTutor-Frontend
+      dockerfile: Dockerfile
     container_name: frontend
     env_file: .env-frontend
     volumes:

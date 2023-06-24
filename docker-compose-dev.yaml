@@ -1,9 +1,33 @@
 version: "3.8"
 services:
   frontend:
-    build: GPTutor-Frontend/Dockerfile.dev
+    build:
+      context: GPTutor-Frontend
+      dockerfile: Dockerfile.dev
     container_name: frontend
     ports:
       - '10888:10888'
-    volumes:
-      - ./GPTutor-Frontend:/app
+    networks:
+      - app
+
+  backend:
+    build: ./GPTutor-Backend
+    container_name: backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresql
+    env_file: .env
+    networks:
+      - app
+
+  postgresql:
+    image: 'postgres:13.1-alpine'
+    container_name: postgresql
+    env_file: .env
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
