@@ -22,7 +22,7 @@ docker-compose up -d frontend
 
 docker-compose -f docker-compose-dev-nginx.yaml down
 
-docker volume rm gptutor_www-html
+docker volume rm gptutor-infrastructure_www-html
 
 docker-compose stop nginx
 docker-compose rm --force nginx
