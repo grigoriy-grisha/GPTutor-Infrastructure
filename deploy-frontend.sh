@@ -20,7 +20,7 @@ docker-compose rm --force frontend
 docker-compose build frontend
 docker-compose up -d frontend
 
-docker-compose -f docker-compose-dev-nginx.yaml down
+docker-compose down
 
 docker volume rm gptutor-infrastructure_www-html
 
