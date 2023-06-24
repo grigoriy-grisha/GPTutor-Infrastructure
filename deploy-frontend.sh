@@ -4,13 +4,10 @@ git pull
 
 sh .env.sh
 
-# shellcheck disable=SC2164
-cd ./GPTutor-Frontend
-
+cd ./GPTutor-Frontend || exit
 git pull
 
-# shellcheck disable=SC2164
-cd ../
+cd ../ || exit
 
 sh .env.sh
 
@@ -29,4 +26,6 @@ docker-compose rm --force nginx
 
 docker-compose build nginx
 docker-compose up -d nginx
+
+sh deploy-all.sh
 
