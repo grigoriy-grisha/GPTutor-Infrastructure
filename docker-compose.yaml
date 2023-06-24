@@ -62,12 +62,15 @@ services:
     image: 'postgres:13.1-alpine'
     container_name: postgresql
     env_file: .env
+    volumes:
+      - db-data:/var/lib/postgresql/data
     networks:
       - app
 
 volumes:
   www-html:
   etc-letsencrypt:
+  db-data:
 
 networks:
   app:
