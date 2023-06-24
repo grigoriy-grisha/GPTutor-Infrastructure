@@ -24,7 +24,7 @@ services:
             "spring.datasource.username": "${POSTGRES_USER}",
             "spring.datasource.password": "${POSTGRES_PASSWORD}",
             "auth.client.secret": "${AUTH_SECRET_KEY}",
-            "auth.skip": "${CHECK_AUTH}",
+            "auth.skip": "${SKIP_AUTH}",
             "vk.key": "${VK_KEY}",
             "cors.allowed.origins": "${CORS_ORIGIN}"
      }'
