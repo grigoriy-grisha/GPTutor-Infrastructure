@@ -1,7 +1,7 @@
 sh .env.sh
 
 cd ./GPTutor-Frontend || exit
-npm i
+npm i --force
 npm run start
 cd ../
 
