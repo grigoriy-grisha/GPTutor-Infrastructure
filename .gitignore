@@ -3,3 +3,6 @@
 .env
 .env-stage
 .env-frontend
+node_modules
+package.json
+package-lock.json
