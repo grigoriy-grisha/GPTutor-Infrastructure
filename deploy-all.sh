@@ -24,6 +24,7 @@ docker-compose up -d frontend
 docker-compose down
 
 docker volume rm gptutor-infrastructure_www-html
+docker volume rm gptutor-infrastructure_www-html-stage
 
 docker-compose up -d frontend
 docker-compose up -d nginx
@@ -51,7 +52,6 @@ docker-compose rm --force frontend-stage
 docker-compose build frontend-stage
 docker-compose up -d frontend-stage
 
-docker volume rm gptutor-infrastructure_www-html-stage
 
 docker-compose up -d frontend-stage
 docker-compose up -d postgresql-stage
