@@ -15,16 +15,16 @@ cd ../
 docker-compose down
 docker-compose build
 
-docker-compose up frontend -d
-docker-compose up frontend-stage -d
+docker-compose up -d frontend
+docker-compose up -d frontend-stage
 
-docker-compose up nginx -d
+docker-compose up -d nginx
 
-docker-compose up postgresql -d
-docker-compose up postgresql-stage -d
+docker-compose up -d postgresql
+docker-compose up -d postgresql-stage
 
-docker-compose up certbot -d
-docker-compose up certbot-stage -d
+docker-compose up -d certbot
+docker-compose up -d certbot-stag
 
-docker-compose up backend -d
-docker-compose up backend-stage -d
+docker-compose up -d backend
+docker-compose up -d backend-stage
