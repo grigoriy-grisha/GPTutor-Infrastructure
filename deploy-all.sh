@@ -23,7 +23,7 @@ docker-compose up -d postgresql
 docker-compose up -d backend
 docker-compose up -d certbot
 
-sh .env.sh
+sh .env-stage.sh
 
 cd ./GPTutor-Frontend || exit
 git switch -c origin/develop
