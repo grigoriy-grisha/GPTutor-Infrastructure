@@ -1,6 +1,25 @@
 version: '3.9'
 
 services:
+  nginx:
+    image: nginx:1.19.8-alpine
+    depends_on:
+      - frontend
+      - frontend-stage
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - www-html:/var/www/html
+      - www-html-stage:/var/www/html/stage
+      - ./nginx-conf.d:/etc/nginx/conf.d
+      - etc-letsencrypt:/etc/letsencrypt
+    networks:
+      - app
+
+  # Production
   frontend:
     build:
       context: GPTutor-Frontend
@@ -10,33 +29,6 @@ services:
       - www-html:/app/build/
     networks:
       - app
-
-  nginx:
-    image: nginx:1.19.8-alpine
-    depends_on:
-      - frontend
-    container_name: nginx
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - www-html:/var/www/html
-      - ./nginx-conf.d:/etc/nginx/conf.d
-      - etc-letsencrypt:/etc/letsencrypt
-    networks:
-      - app
-
-  certbot:
-    image: certbot/certbot
-    depends_on:
-      - nginx
-    container_name: certbot
-    volumes:
-      - etc-letsencrypt:/etc/letsencrypt
-      - www-html:/var/www/html
-    command: certonly --webroot --webroot-path=/var/www/html --email lowww1337@gmail.com --agree-tos --no-eff-email -d gptutor.site
-
   backend:
     build: ./GPTutor-Backend
     container_name: backend
@@ -57,7 +49,6 @@ services:
                   "vk.key": "${VK_KEY}",
                   "cors.allowed.origins": "${CORS_ORIGIN}"
            }'
-
   postgresql:
     image: 'postgres:13.1-alpine'
     container_name: postgresql
@@ -66,11 +57,72 @@ services:
       - db-data:/var/lib/postgresql/data
     networks:
       - app
+  certbot:
+    image: certbot/certbot
+    depends_on:
+      - nginx
+    container_name: certbot-stage
+    volumes:
+      - etc-letsencrypt:/etc/letsencrypt
+      - www-html:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html --email lowww1337@gmail.com --agree-tos --no-eff-email -d gptutor.site
+
+  # Stage
+  frontend-stage:
+    build:
+      context: GPTutor-Frontend
+      dockerfile: Dockerfile
+    container_name: frontend-stage
+    volumes:
+      - www-html-stage:/app/build/
+    networks:
+      - app
+
+  backend-stage:
+    build: ./GPTutor-Backend
+    container_name: backend-stage
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgresql-stage
+    env_file: .env-stage
+    networks:
+      - app
+    environment:
+      SPRING_APPLICATION_JSON: '{
+                  "spring.datasource.url": "jdbc:postgresql://postgresql-stage:5432/postgres",
+                  "spring.datasource.username": "${POSTGRES_USER}",
+                  "spring.datasource.password": "${POSTGRES_PASSWORD}",
+                  "auth.client.secret": "${AUTH_SECRET_KEY}",
+                  "auth.skip": ${SKIP_AUTH},
+                  "vk.key": "${VK_KEY}",
+                  "cors.allowed.origins": "${CORS_ORIGIN}"
+           }'
+  postgresql-stage:
+    image: 'postgres:13.1-alpine'
+    container_name: postgresql-stage
+    env_file: .env-stage
+    volumes:
+      - db-data-stage:/var/lib/postgresql/data
+    networks:
+      - app
+
+  certbot-stage:
+    image: certbot/certbot
+    depends_on:
+      - nginx
+    container_name: certbot-stage
+    volumes:
+      - etc-letsencrypt:/etc/letsencrypt
+      - www-html-stage:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html --email lowww1337@gmail.com --agree-tos --no-eff-email -d stage.gptutor.site
 
 volumes:
   www-html:
   etc-letsencrypt:
   db-data:
+  www-html-stage:
+  db-data-stage:
 
 networks:
   app:
