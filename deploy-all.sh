@@ -24,7 +24,7 @@ docker-compose up -d postgresql
 docker-compose up -d postgresql-stage
 
 docker-compose up -d certbot
-docker-compose up -d certbot-stag
+docker-compose up -d certbot-stage
 
 docker-compose up -d backend
 docker-compose up -d backend-stage
