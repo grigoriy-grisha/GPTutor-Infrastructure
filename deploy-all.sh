@@ -42,13 +42,13 @@ sh .env-stage.sh
 
 cd ./GPTutor-Frontend || exit
 git checkout origin/develop
-git pull
+git pull origin develop
 
 cd ../
 
 cd ./GPTutor-Backend || exit
 git checkout origin/develop
-git pull
+git pull origin develop
 
 cd ../
 
