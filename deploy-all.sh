@@ -14,7 +14,6 @@ cd ../
 
 docker-compose down
 docker-compose build
-docker-compose up -d
 
 docker-compose up frontend -d
 docker-compose up frontend-stage -d
