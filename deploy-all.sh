@@ -26,12 +26,12 @@ docker-compose up -d certbot
 sh .env-stage.sh
 
 cd ./GPTutor-Frontend || exit
-git switch origin/develop
+git checkout origin/develop
 git pull
 
 
 cd ./GPTutor-Backend || exit
-git switch origin/develop
+git checkout origin/develop
 git pull
 
 cd ../
