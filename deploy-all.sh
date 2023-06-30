@@ -29,6 +29,7 @@ cd ./GPTutor-Frontend || exit
 git checkout origin/develop
 git pull
 
+cd ../
 
 cd ./GPTutor-Backend || exit
 git checkout origin/develop
