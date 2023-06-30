@@ -3,14 +3,15 @@
 sh .env.sh
 
 cd ./GPTutor-Frontend || exit
+git checkout main
 git pull
-git checkout origin main
 
 cd ../
 
 cd ./GPTutor-Backend || exit
+
+git checkout main
 git pull
-git checkout origin main
 
 cd ../
 
@@ -25,14 +26,14 @@ docker-compose up -d certbot
 sh .env.sh
 
 cd ./GPTutor-Frontend || exit
+git switch -c origin/develop
 git pull
-git checkout origin develop
 
 cd ../
 
 cd ./GPTutor-Backend || exit
+git switch -c origin/develop
 git pull
-git checkout origin develop
 
 cd ../
 
