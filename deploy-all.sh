@@ -21,16 +21,9 @@ docker-compose rm --force frontend
 docker-compose build frontend
 docker-compose up -d frontend
 
-docker-compose stop  frontend-stage
-docker-compose rm --force frontend-stage
-
-docker-compose build frontend-stage
-docker-compose up -d frontend-stage
-
 docker-compose down
 
 docker volume rm gptutor-infrastructure_www-html
-docker volume rm gptutor-infrastructure_www-html-stage
 
 docker-compose up -d frontend
 docker-compose up -d nginx
@@ -51,6 +44,14 @@ git checkout origin/develop
 git pull origin develop
 
 cd ../
+
+docker-compose stop  frontend-stage
+docker-compose rm --force frontend-stage
+
+docker-compose build frontend-stage
+docker-compose up -d frontend-stage
+
+docker volume rm gptutor-infrastructure_www-html-stage
 
 docker-compose up -d frontend-stage
 docker-compose up -d postgresql-stage
