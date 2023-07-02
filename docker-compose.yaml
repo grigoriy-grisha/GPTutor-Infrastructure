@@ -47,7 +47,8 @@ services:
                   "auth.client.secret": "${AUTH_SECRET_KEY}",
                   "auth.skip": ${SKIP_AUTH},
                   "vk.key": "${VK_KEY}",
-                  "cors.allowed.origins": "${CORS_ORIGIN}"
+                  "cors.allowed.origins": "${CORS_ORIGIN}",
+                  "api.keys.120dollars": "${API_KEYS_120}"
            }'
   postgresql:
     image: 'postgres:13.1-alpine'
@@ -96,7 +97,8 @@ services:
                   "auth.client.secret": "${AUTH_SECRET_KEY}",
                   "auth.skip": ${SKIP_AUTH},
                   "vk.key": "${VK_KEY}",
-                  "cors.allowed.origins": "${CORS_ORIGIN}"
+                  "cors.allowed.origins": "${CORS_ORIGIN}",
+                  "api.keys.120dollars": "${API_KEYS_120}"
            }'
   postgresql-stage:
     image: 'postgres:13.1-alpine'
