@@ -48,7 +48,8 @@ services:
                   "auth.skip": ${SKIP_AUTH},
                   "vk.key": "${VK_KEY}",
                   "cors.allowed.origins": "${CORS_ORIGIN}",
-                  "api.keys.120dollars": "${API_KEYS_120}"
+                  "api.keys.120dollars": "${API_KEYS_120}",
+                  "api.keys.5dollars": "${API_KEYS_5}"
            }'
   postgresql:
     image: 'postgres:13.1-alpine'
@@ -98,7 +99,8 @@ services:
                   "auth.skip": ${SKIP_AUTH},
                   "vk.key": "${VK_KEY}",
                   "cors.allowed.origins": "${CORS_ORIGIN}",
-                  "api.keys.120dollars": "${API_KEYS_120}"
+                  "api.keys.120dollars": "${API_KEYS_120}",
+                  "api.keys.5dollars": "${API_KEYS_5}"
            }'
   postgresql-stage:
     image: 'postgres:13.1-alpine'
